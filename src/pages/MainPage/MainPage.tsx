@@ -86,6 +86,13 @@ class MainPage extends React.Component<MainPageProps, MainPageState> {
     this.props.setLanguage(language);
   }
 
+  formatName(name: string) {
+    const nameParts = name.split(" ");
+    const firstName = nameParts[0] || "";
+    const lastNameInitial = nameParts[1] ? nameParts[1][0] : "";
+    return `${firstName} ${lastNameInitial}.`.trim();
+  }
+
   render() {
     const { data, language } = this.props;
     const { currentPage, reviewsPerPage } = this.state;
@@ -108,7 +115,7 @@ class MainPage extends React.Component<MainPageProps, MainPageState> {
         <div className="container">
           {currentReviews.map((review: UserComment, index) => (
             <div className="post" key={index}>
-              <h3>{review.name}</h3>
+              <h3>{this.formatName(review.name)}</h3>
               <p>{review.review}</p>
               <small>{review.date}</small>
             </div>
